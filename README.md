@@ -5,10 +5,6 @@
 </a>
 <a href="https://instagram.com/_potenzaantonio_">
 <img src="https://skillicons.dev/icons?i=instagram" height="32"/>
-</a>
-<a href = "mailto:potenza.antonio@icloud.com?subject=Contact%20from%20GitHub">
-<img src="https://cdn.simpleicons.org/apple/000000" height="35"/>
-</a>
 
 </h1>
 
