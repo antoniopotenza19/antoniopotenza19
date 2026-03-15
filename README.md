@@ -1,16 +1,87 @@
-## Hi there 👋
+<h1>
+⚙ Antonio Potenza
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/">
+<img src="https://skillicons.dev/icons?i=linkedin" height="32"/>
+</a>
+<a href="https://instagram.com/_potenzaantonio_">
+<img src="https://skillicons.dev/icons?i=instagram" height="32"/>
+</a>
+<a href = "mailto:potenza.antonio@icloud.com?subject=Contact%20from%20GitHub">
+<img src="https://cdn.simpleicons.org/apple/000000" height="35"/>
+</a>
 
-<!--
-**antoniopotenza19/antoniopotenza19** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+</h1>
 
-Here are some ideas to get you started:
+**`Industrial Data & Automation Engineer in Progress`**
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+I'm a Data Science and Computer Engineering student at **Politecnico di Torino** focused on building systems that transform **industrial machine data into real-time insights**.
+
+My work sits at the intersection of:
+
+- Industrial Automation
+- Data Engineering
+- SCADA Web Systems
+- Data Analytics
+- Predictive Maintenance
+
+---
+
+### 🧰 Languages and Tools
+
+<p align="left">
+<img src="https://skillicons.dev/icons?i=visualstudio,python,react,fastapi,docker,postgres,mysql,c&perline=8" />
+</p>
+
+---
+
+### 🏭 Industrial & Data Skills
+
+⚙ PLC Programming  
+📡 SCADA Systems  
+📊 Data Analytics  
+📈 Industrial Dashboards  
+🔌 Machine Telemetry Pipelines  
+🧠 Predictive Maintenance  
+
+---
+
+### 🚀 What I Build
+
+Some of the systems I work on include:
+
+**Industrial SCADA Web Platform**
+
+- Real-time compressor monitoring
+- Alarm management systems
+- Energy monitoring dashboards
+- Time-series data visualization
+
+Tech stack:
+
+Python • FastAPI • React • TimescaleDB • Docker
+
+---
+
+**Data Science & Simulation**
+
+Projects involving:
+
+- stochastic process simulations
+- epidemic modeling
+- random graph analysis
+- time-series forecasting
+
+Tech stack:
+
+Python • NumPy • Pandas • Matplotlib
+
+---
+
+### 📊 Current Focus
+
+Currently working on:
+
+- Industrial monitoring platforms
+- AI-driven anomaly detection
+- Data pipelines for machine telemetry
+- SCADA web dashboards
