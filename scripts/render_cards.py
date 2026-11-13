@@ -53,7 +53,7 @@ def write(name,parts):
 
 
 def hero(profile):
-    p=start(880,420,profile['name'],"Industrial Data & Automation. Student at Politecnico di Torino. ASCII portrait made from Antonio's cartoon photograph.")
+    p=start(880,420,profile['name'],"Industrial Data & Automation. Computer engineer with a Data Science background from Politecnico di Torino. ASCII portrait made from Antonio's cartoon photograph.")
     p += [rect(48,49,8,8,BLUE,2),txt(66,57,"INDUSTRIAL DATA & AUTOMATION",11,MUTED,MONO),
           '<g class="rise">',txt(44,185,"Antonio",108,family=SERIF),
           txt(44,287,"Potenza",108,family=SERIF,extra='font-style="italic"'),
@@ -85,6 +85,62 @@ def tool_icon(name, x, y, index):
     root.set('width','38')
     root.set('height','38')
     return ET.tostring(root,encoding='unicode')
+
+
+def background():
+    p=start(880,490,'Background',
+            'Computer engineer with a Data Science background from Politecnico di Torino. Experience at GFR Engineering, AROL and OVERACE GROUP.',
+            fonts=('serif','sans','bold','mono'))
+    p += [txt(40,58,'Background',42,family=SERIF),
+          txt(42,97,"I'm a computer engineer with a background in Data Science",16),
+          txt(42,122,'from Politecnico di Torino. I connect industrial systems, data pipelines',16),
+          txt(42,147,'and software to turn machine data into useful information.',16),
+          rect(42,167,796,1,RULE)]
+    experiences=[
+        ('GFR Engineering','Feb — Nov 2026','Project Manager',
+         ['Built a web SCADA / IIoT platform for remote compressor',
+          'monitoring, from Modbus acquisition to dashboards and alarms.'],BLUE),
+        ('AROL S.p.A.','Mar — Oct 2026','Data Science thesis',
+         ['Applied industrial AI and anomaly detection to production data,',
+          'with time-series analysis, feature extraction and reporting.'],RED),
+        ('OVERACE GROUP','Sep 2023 — Feb 2024','Back End Developer',
+         ['Worked on vehicle CO2 monitoring, Python / Pandas pipelines',
+          'and MongoDB data management.'], '#a47c00')]
+    for i,(company,dates,role,lines,color) in enumerate(experiences):
+        y=198+i*92
+        p += [f'<circle cx="48" cy="{y-5}" r="4" fill="{color}"/>',
+              txt(64,y,company,16,INK,SANS,'font-weight="600"'),
+              txt(64,y+23,dates,10,MUTED,MONO),
+              txt(304,y,role,14,INK,SANS,'font-weight="600"')]
+        for j,line in enumerate(lines):
+            p.append(txt(304,y+26+j*20,line,12.5,'#4b4b50'))
+        if i<2:
+            p.append(rect(42,y+60,796,1,RULE))
+    p += [txt(42,468,'More about me',10,MUTED,MONO),
+          txt(838,468,'LinkedIn ↗',11,BLUE,SANS,'text-anchor="end"')]
+    write('background.svg',p)
+
+
+def social_icons():
+    for name,label,color in [('linkedin','LinkedIn','#0a66c2'),
+                             ('website','APT Systems website',BLUE),
+                             ('instagram','Instagram','#a02db5')]:
+        p=start(54,54,label,f'Open {label}',fonts=(),background=None,gap=0)
+        p += [rect(1,1,52,52,PAPER,14),
+              '<g fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">']
+        if name=='website':
+            p += ['<circle cx="27" cy="27" r="13"/><ellipse cx="27" cy="27" rx="6" ry="13"/>'
+                  '<path d="M14 27H40M17 20H37M17 34H37"/>']
+        elif name=='instagram':
+            p += ['<rect x="14" y="14" width="26" height="26" rx="8"/>'
+                  '<circle cx="27" cy="27" r="6"/>'
+                  '<circle cx="34.5" cy="19.5" r="1.2" fill="'+color+'" stroke="none"/>']
+        else:
+            p += ['<rect x="14" y="14" width="26" height="26" rx="3" fill="'+color+'" stroke="none"/>'
+                  '<path d="M21 24V34M26.5 34V24M26.5 28C26.5 22.5 34 22.5 34 28V34" stroke="#fff" stroke-width="2.6"/>'
+                  '<circle cx="21" cy="20" r="1.5" fill="#fff" stroke="none"/>']
+        p.append('</g>')
+        write('social-'+name+'.svg',p)
 
 
 def toolkit():
@@ -186,10 +242,12 @@ def main():
     OUT.mkdir(exist_ok=True)
     profile=json.loads((ROOT/'profile.json').read_text())
     hero(profile)
+    background()
     toolkit()
     pillars()
     projects()
-    print('Rendered 10 paper-and-ink profile cards')
+    social_icons()
+    print('Rendered 14 profile assets')
 
 
 if __name__=='__main__':

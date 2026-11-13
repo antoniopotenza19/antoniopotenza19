@@ -1,6 +1,7 @@
 <!-- Cards use embedded fonts and SVG animation. Keep each three-card row on one line. -->
 <div align="center">
-<a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/hero.svg" width="100%" alt="Antonio Potenza. Industrial Data and Automation. I turn machine data into real-time insights. Student at Politecnico di Torino. ASCII portrait based on my cartoon photograph." /></a><br>
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/hero.svg" width="100%" alt="Antonio Potenza. Industrial Data and Automation. Computer engineer with a Data Science background from Politecnico di Torino. I turn machine data into real-time insights. ASCII portrait based on my cartoon photograph." /></a><br>
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/background.svg" width="100%" alt="Background: computer engineer with a Data Science background from Politecnico di Torino. Project Manager at GFR Engineering, Data Science thesis at AROL and Back End Developer at OVERACE GROUP." /></a><br>
 <img src="./cards/toolkit.svg" width="100%" alt="My animated toolkit: Python, FastAPI, React, Docker, PostgreSQL, TimescaleDB, NumPy, Pandas, Matplotlib, C, MySQL and Visual Studio." /><br>
 <a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/automate.svg" width="33.333%" alt="AUTOMATE: Machines. SCADA systems, PLC programming and real-time machine telemetry." /></a><a href="https://github.com/antoniopotenza19?tab=repositories"><img src="./cards/analyze.svg" width="33.333%" alt="ANALYZE: Data. Time-series analysis, simulations and predictive maintenance." /></a><a href="https://github.com/antoniopotenza19?tab=repositories"><img src="./cards/build.svg" width="33.333%" alt="BUILD: Systems. Python, FastAPI and React. From data pipelines to dashboards." /></a><br>
 <picture><source media="(prefers-color-scheme: dark)" srcset="./cards/title-dark.svg" /><img src="./cards/title-light.svg" width="100%" alt="What I'm building" /></picture><br>
@@ -8,22 +9,7 @@
 </div>
 
 <p align="center">
-<a href="https://linkedin.com/in/antonio-potenza-345b551a7/">linkedin</a> &nbsp;/&nbsp; <a href="https://instagram.com/_potenzaantonio_">instagram</a> &nbsp;/&nbsp; <a href="https://github.com/antoniopotenza19?tab=repositories">repositories</a> &nbsp;/&nbsp; <a href="https://aptsystems.it">aptsystems.it</a>
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/" title="LinkedIn"><img src="./cards/social-linkedin.svg" width="54" height="54" alt="LinkedIn" /></a> &nbsp;
+<a href="https://aptsystems.it" title="APT Systems"><img src="./cards/social-website.svg" width="54" height="54" alt="APT Systems website" /></a> &nbsp;
+<a href="https://instagram.com/_potenzaantonio_" title="Instagram"><img src="./cards/social-instagram.svg" width="54" height="54" alt="Instagram" /></a>
 </p>
-
-<details>
-<summary>Background & tools</summary>
-
-I'm a Data Science and Computer Engineering student at **Politecnico di Torino**, focused on systems that transform industrial machine data into real-time insights.
-
-My work includes PLC programming, SCADA systems, industrial dashboards, machine telemetry pipelines, data analytics and predictive maintenance. My current focus is industrial monitoring platforms, anomaly detection and SCADA web dashboards.
-
-**Stack:** Python · FastAPI · React · PostgreSQL · TimescaleDB · Docker · C · MySQL · Visual Studio.
-
-**Industrial SCADA Web Platform:** real-time compressor monitoring, alarm management, energy dashboards and time-series visualization.
-
-**Data Science & Simulation:** stochastic processes, epidemic models, random graphs and time-series forecasting with NumPy, Pandas and Matplotlib.
-
-Inspired by [Avi Vashishta's profile](https://github.com/AVIVASHISHTA29). [How this README works](./MAINTENANCE.md).
-
-</details>

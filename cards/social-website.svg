@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54" role="img" aria-labelledby="title desc">
+<title id="title">APT Systems website</title><desc id="desc">Open APT Systems website</desc>
+<style>@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.bob{animation:bob 3.6s ease-in-out infinite}
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.pop{animation:pop .35s both;transform-box:fill-box;transform-origin:center}
+@media(prefers-reduced-motion:reduce){.rise,.pop,.bob{animation:none!important}.scan{display:none}}
+</style>
+<rect x="1" y="1" width="52" height="52" rx="14" fill="#f3f3f1" />
+<g fill="none" stroke="#2f55ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="27" cy="27" r="13"/><ellipse cx="27" cy="27" rx="6" ry="13"/><path d="M14 27H40M17 20H37M17 34H37"/>
+</g>
+</svg>
