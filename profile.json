@@ -1,0 +1,10 @@
+{
+  "username": "antoniopotenza19",
+  "name": "Antonio Potenza",
+  "title": "Industrial Data & Automation",
+  "subtitle": "Engineer in progress",
+  "education": "Politecnico di Torino",
+  "study": "Data Science & Computer Engineering",
+  "focus": ["Machine telemetry & SCADA", "Data pipelines & anomaly detection"],
+  "stack": ["Python / FastAPI / React", "PostgreSQL / TimescaleDB / Docker"]
+}
