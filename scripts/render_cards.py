@@ -1,9 +1,9 @@
 """Paper-and-ink profile cards, independently implemented for Antonio Potenza."""
 import base64
-from collections import defaultdict
-from datetime import date, timedelta
 from html import escape
 import json
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,11 +18,11 @@ FONTS = {"serif": ("Instrument Serif", "normal",400,"serif.woff"),
          "mono": ("Geist Mono","normal",400,"mono.woff")}
 CSS = """@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
-@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.bob{animation:bob 3.6s ease-in-out infinite}
 .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
 .pop{animation:pop .35s both;transform-box:fill-box;transform-origin:center}
-.bar{animation:grow .8s both;transform-box:fill-box;transform-origin:bottom}
-@media(prefers-reduced-motion:reduce){.rise,.pop,.bar{animation:none!important}.scan{display:none}}
+@media(prefers-reduced-motion:reduce){.rise,.pop,.bob{animation:none!important}.scan{display:none}}
 """
 
 
@@ -72,63 +72,45 @@ def hero(profile):
     write('hero.svg',p)
 
 
-def calendar(data):
-    p=start(880,248,"Every day, in blue",f"Real GitHub contribution calendar for {data['username']}; updated {data['generated_at']}")
-    p += [txt(42,57,"Every day,",34,family=SERIF),txt(169,57,"in blue",34,BLUE,SERIF,'font-style="italic"'),
-          txt(838,53,"REFRESHED DAILY",10,MUTED,MONO,'text-anchor="end"')]
-    days=data['days']
-    first=date.fromisoformat(days[0]['date'])
-    sunday=first-timedelta(days=(first.weekday()+1)%7)
-    cols=((date.fromisoformat(days[-1]['date'])-sunday).days//7)+1
-    step=796/cols
-    palette=['#e2e2de','#cdd4ff','#a4b2ff','#7087ff',BLUE]
-    labels=set()
-    for d in days:
-        day=date.fromisoformat(d['date'])
-        col,row=divmod((day-sunday).days,7)
-        x,y=44+col*step,90+row*15
-        cell=rect(round(x,2),y,round(step-3,2),12,palette[d['level']],2,
-                  f'class="pop" style="animation-delay:{col*.018+row*.035:.3f}s"')
-        p.append(cell.removesuffix('/>')+f'><title>{d["date"]}: {d["count"]} contributions</title></rect>')
-        month=(day.year,day.month)
-        if month not in labels and day.day<=7 and col<cols-1:
-            labels.add(month)
-            p.append(txt(round(x,2),213,day.strftime('%b'),9,MUTED,MONO))
-    p += [txt(670,232,'less',9,MUTED,MONO),txt(837,232,'more',9,MUTED,MONO,'text-anchor="end"')]
-    for i,color in enumerate(palette):
-        p.append(rect(707+i*17,223,12,10,color,2))
-    write('heatmap.svg',p)
+def tool_icon(name, x, y, index):
+    if name == 'timescale':
+        return rect(x,y,38,38,'#ffdb36',10)+txt(x+19,y+26,'TS',17,INK,MONO,'text-anchor="middle"')
+    raw=(ROOT/'assets/tool-icons'/f'{name}.svg').read_text(encoding='utf-8')
+    for ident in re.findall(r'id="([^"]+)"',raw):
+        raw=raw.replace(f'id="{ident}"',f'id="tool{index}-{ident}"').replace(f'#{ident})',f'#tool{index}-{ident})').replace(f'href="#{ident}"',f'href="#tool{index}-{ident}"')
+    ET.register_namespace('', 'http://www.w3.org/2000/svg')
+    root=ET.fromstring(raw)
+    root.set('x',str(x))
+    root.set('y',str(y))
+    root.set('width','38')
+    root.set('height','38')
+    return ET.tostring(root,encoding='unicode')
 
 
-def activity(data):
-    days,stats=data['days'],data['stats']
-    months=defaultdict(int)
-    for d in days:
-        months[d['date'][:7]]+=d['count']
-    months=list(sorted(months.items()))[-12:]
-    maximum=max([count for _,count in months]+[1])
-    best=max(days,key=lambda d:d['count'])
-    p=start(880,338,"The last 12 months on GitHub",f"{stats['total']} contributions, {stats['current_streak']} day current streak, {stats['longest_streak']} day longest streak")
-    p += [txt(40,53,"THE LAST 12 MONTHS ON GITHUB",11,MUTED,MONO),
-          txt(38,109,f"{stats['total']:,}",50,family=SERIF),
-          txt(100 if stats['total']<100 else 145,109,"contributions",50,family=SERIF,extra='font-style="italic"')]
-    for i,(month,count) in enumerate(months):
-        x=40+i*47.5
-        h=138*count/maximum
-        if count:
-            p.append(rect(x,285-h,36,round(h,2),BLUE if count==maximum else INK,4,
-                          f'class="bar" style="animation-delay:{i*.055:.3f}s"'))
-        else:
-            p.append(rect(x,283,36,2,RULE,1))
-        p.append(txt(x+18,309,date.fromisoformat(month+'-01').strftime('%b'),10,MUTED,MONO,'text-anchor="middle"'))
-        if count==maximum and count:
-            p.append(txt(x+18,276-h,str(count),10,BLUE,MONO,'text-anchor="middle"'))
-    p += [txt(648,95,str(stats['current_streak']),42,family=SERIF),txt(685,95,"day" if stats['current_streak']==1 else "days",42,family=SERIF,extra='font-style="italic"'),
-          txt(649,119,f"current streak · longest {stats['longest_streak']}d",11,MUTED),
-          rect(648,138,190,1,RULE),txt(648,184,f"{stats['active_days']} / {len(days)}",40,family=SERIF),
-          txt(649,208,"days with a contribution",12,MUTED),rect(648,228,190,1,RULE),
-          txt(648,272,best['count'],40,family=SERIF),txt(649,299,"on the busiest day",12,MUTED)]
-    write('activity.svg',p)
+def toolkit():
+    tools=[
+        ('python','Python','#3776ab'),('fastapi','FastAPI','#009688'),
+        ('react','React','#149eca'),('docker','Docker','#2496ed'),
+        ('postgresql','PostgreSQL','#4169e1'),('timescale','TimescaleDB','#c99b00'),
+        ('numpy','NumPy','#4d77cf'),('pandas','Pandas','#150458'),
+        ('matplotlib','Matplotlib','#11557c'),('c','C','#659ad2'),
+        ('mysql','MySQL','#00758f'),('visualstudio','Visual Studio','#a65ce5')]
+    p=start(880,398,'The tools behind the work',
+            'Python, FastAPI, React, Docker, PostgreSQL, TimescaleDB, NumPy, Pandas, Matplotlib, C, MySQL and Visual Studio.',
+            fonts=('serif','sans','bold','mono'))
+    p += [txt(40,58,'The tools behind the work.',40,family=SERIF),
+          txt(42,88,'DIFFERENT TOOLS. ONE CONNECTED WORKFLOW.',10,MUTED,MONO)]
+    for i,(icon,label,color) in enumerate(tools):
+        x,y=40+(i%6)*136,120+(i//6)*119
+        p += [f'<g class="rise" style="animation-delay:{i*.065:.3f}s">',
+              rect(x,y,120,104,'#ffffff',14,extra='stroke="#e2e2de"'),
+              txt(x+12,y+20,f'{i+1:02}',8,'#a5a5a1',MONO),
+              f'<circle cx="{x+105}" cy="{y+17}" r="3" fill="{color}"/>',
+              f'<g class="bob" style="animation-delay:{i*.21:.2f}s">',
+              tool_icon(icon,x+41,y+23,i),'</g>',
+              txt(x+60,y+86,label,11,INK,SANS,'text-anchor="middle" font-weight="600"'),'</g>']
+    p += [txt(440,377,'collect  →  process  →  serve  →  ship',12,BLUE,MONO,'text-anchor="middle"')]
+    write('toolkit.svg',p)
 
 
 def pillars():
@@ -147,13 +129,13 @@ def pillars():
 
 def projects():
     for theme,color in [('dark','#f3f3f1'),('light',INK)]:
-        p=start(880,70,"What I'm building","Current projects and areas of work",background=None,gap=0)
-        p += [txt(0,45,"What I'm",34,color,SERIF),txt(132,45,'building',34,color,SERIF,'font-style="italic"')]
+        p=start(880,70,"What I'm building","Current projects and areas of work",fonts=('sans','bold'),background=None,gap=0)
+        p += [txt(0,46,"What I'm building",30,color,SANS,'font-weight="600"')]
         write('title-'+theme+'.svg',p)
     for index,(name,title,lines,stack,color) in enumerate([
         ('scada','SCADA & telemetry',['Compressor monitoring, alarms,','energy dashboards and industrial','time-series visualization.'],'Python · FastAPI · React',BLUE),
         ('data','Data & simulation',['Stochastic processes, epidemic','models, random graphs and','time-series forecasting.'],'NumPy · Pandas · Matplotlib',RED),
-        ('profile','This GitHub profile',['Animated SVG artwork with a','daily calendar generated from','real GitHub contribution data.'],'Python · SVG · GitHub Actions',YELLOW)]):
+        ('aptios','Aptios',['Business workflows, documents','and automations, brought','together in one workspace.'],'APT Systems · Business software',YELLOW)]):
         p=start(293.333,180,title,' '.join(lines),fonts=('sans','bold','mono'),background=None)
         p += [f'<g transform="translate({index*4},0)">',rect(0,0,285.333,180,PAPER,14),rect(24,27,8,8,color,1),txt(40,36,title,16,extra='font-weight="600"')]
         for i,line in enumerate(lines):
@@ -166,15 +148,11 @@ def projects():
 def main():
     OUT.mkdir(exist_ok=True)
     profile=json.loads((ROOT/'profile.json').read_text())
-    data=json.loads((ROOT/'data/contributions.json').read_text())
-    if profile['username']!=data['username']:
-        raise ValueError('Contribution account mismatch')
     hero(profile)
-    calendar(data)
-    activity(data)
+    toolkit()
     pillars()
     projects()
-    print('Rendered 11 paper-and-ink profile cards')
+    print('Rendered 10 paper-and-ink profile cards')
 
 
 if __name__=='__main__':

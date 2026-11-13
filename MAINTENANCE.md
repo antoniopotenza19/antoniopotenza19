@@ -1,16 +1,15 @@
 # Maintaining the profile
 
-The README uses self-contained SVG cards with embedded fonts. It follows the current paper-and-ink layout of [Avi Vashishta's profile](https://github.com/AVIVASHISHTA29), rather than the older terminal layout described in his article. The scripts were independently written for Antonio's profile. No personal statistics or portrait from the reference are reused.
+The README uses self-contained SVG cards with embedded fonts. The paper-and-ink design was inspired by [Avi Vashishta's profile](https://github.com/AVIVASHISHTA29), then adapted for Antonio's work. The scripts were independently written for this profile.
 
-The GitHub Action fetches the public contributions calendar daily at 06:17 UTC and regenerates `cards/`. The monthly graph, totals, active days, streaks and best day come from the same calendar snapshot. The graph contains GitHub's 53-week calendar; the monthly chart shows the most recent 12 calendar months. GitHub can delay scheduled runs.
+The animated toolkit replaces the contribution calendar and activity chart. Its twelve tiles show the tools listed in the existing profile. Icons are embedded from Devicon (MIT; license included under `assets/tool-icons/`), with an original TimescaleDB monogram. No external image service or contribution scraping is needed.
+
+The GitHub Action rebuilds cards when their scripts, tool icons or profile configuration change, and can also be run manually. It has no daily schedule.
 
 Normal update:
 
 ```sh
-python -m pip install -r scripts/requirements.txt
-python scripts/fetch_contributions.py
 python scripts/render_cards.py
-python -m unittest discover -s scripts -p 'test_*.py'
 ```
 
 To replace the portrait or regenerate font subsets:
@@ -21,6 +20,6 @@ python scripts/prepare_card_assets.py
 python scripts/render_cards.py
 ```
 
-The portrait preparation expects `assets/antonio-cartoon.png` with alpha. Adjust its face crop if replacing the artwork. Original fonts come from Google Fonts; their licenses are in `fonts/`. The image generation prompt is recorded in `assets/README.md`.
+The portrait preparation expects `assets/antonio-cartoon.png` with alpha. Adjust its face crop if replacing the artwork. `assets/antonio-avatar.png` is a compressed PNG copy for GitHub's avatar upload limit. Original fonts come from Google Fonts; their licenses are in `fonts/`. The image generation prompt is recorded in `assets/README.md`.
 
-Animation is confined to SVG CSS and SMIL, with reduced-motion support. GitHub renders the cards as images. Links around cards belong to the README, so they work without JavaScript. The original terminal artwork remains in repository history and is no longer displayed.
+The company website is [aptsystems.it](https://aptsystems.it); the Aptios card links to it. Animation is confined to SVG CSS and SMIL, with reduced-motion support. GitHub renders the cards as images and the README provides their links.
