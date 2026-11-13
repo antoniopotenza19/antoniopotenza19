@@ -1,61 +1,30 @@
+<!-- Cards use embedded fonts and SVG animation. Keep each three-card row on one line. -->
 <div align="center">
-
-### `antonio@github ~ $ ./contributions.sh`
-
-<img src="./contrib-heatmap.svg" width="860" alt="Antonio's real GitHub contributions over the last year, refreshed daily" />
-
-<br><br>
-
-### `antonio@github ~ $ whoami`
-
-<table>
-  <tr>
-    <td valign="top"><img src="./antonio-ascii.svg" width="370" alt="Animated ASCII portrait of Antonio Potenza" /></td>
-    <td valign="top"><img src="./info-card.svg" width="490" alt="Antonio Potenza — Industrial Data and Automation Engineer in progress. Data Science and Computer Engineering student at Politecnico di Torino. Python, FastAPI, React, PostgreSQL, TimescaleDB and Docker." /></td>
-  </tr>
-</table>
-
-<a href="https://linkedin.com/in/antonio-potenza-345b551a7/">LinkedIn</a> &nbsp;·&nbsp;
-<a href="https://instagram.com/_potenzaantonio_">Instagram</a> &nbsp;·&nbsp;
-<a href="https://github.com/antoniopotenza19?tab=repositories">Repositories</a>
-
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/hero.svg" width="100%" alt="Antonio Potenza. Industrial Data and Automation. I turn machine data into real-time insights. Student at Politecnico di Torino. ASCII portrait based on my cartoon photograph." /></a><br>
+<img src="./cards/heatmap.svg" width="100%" alt="My real GitHub contribution calendar, in blue, refreshed daily." /><br>
+<img src="./cards/activity.svg" width="100%" alt="My contribution totals, monthly activity, active days, current and longest streaks." /><br>
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/"><img src="./cards/automate.svg" width="33.333%" alt="AUTOMATE: Machines. SCADA systems, PLC programming and real-time machine telemetry." /></a><a href="https://github.com/antoniopotenza19?tab=repositories"><img src="./cards/analyze.svg" width="33.333%" alt="ANALYZE: Data. Time-series analysis, simulations and predictive maintenance." /></a><a href="https://github.com/antoniopotenza19?tab=repositories"><img src="./cards/build.svg" width="33.333%" alt="BUILD: Systems. Python, FastAPI and React. From data pipelines to dashboards." /></a><br>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./cards/title-dark.svg" /><img src="./cards/title-light.svg" width="100%" alt="What I'm building" /></picture><br>
+<img src="./cards/project-scada.svg" width="33.333%" alt="SCADA and telemetry: compressor monitoring, alarms, energy dashboards and industrial time-series visualization. Python, FastAPI, React." /><img src="./cards/project-data.svg" width="33.333%" alt="Data and simulation: stochastic processes, epidemic models, random graphs and time-series forecasting. NumPy, Pandas, Matplotlib." /><a href="https://github.com/antoniopotenza19/antoniopotenza19"><img src="./cards/project-profile.svg" width="33.333%" alt="This GitHub profile: animated SVG artwork with a daily calendar generated from real GitHub contribution data. Python, SVG, GitHub Actions." /></a>
 </div>
 
-<br>
-
-### `antonio@github ~ $ cat projects.txt`
-
-**Industrial SCADA Web Platform**<br>
-Real-time compressor monitoring, alarm management, energy dashboards and time-series visualization.<br>
-`Python` · `FastAPI` · `React` · `TimescaleDB` · `Docker`
-
-**Data Science & Simulation**<br>
-Stochastic processes, epidemic models, random graphs and time-series forecasting.<br>
-`Python` · `NumPy` · `Pandas` · `Matplotlib`
-
-**Industrial & Data Skills**<br>
-PLC programming · SCADA systems · Industrial dashboards · Machine telemetry pipelines · Predictive maintenance
-
-**Additional tools**<br>
-`C` · `MySQL` · `Visual Studio`
+<p align="center">
+<a href="https://linkedin.com/in/antonio-potenza-345b551a7/">linkedin</a> &nbsp;/&nbsp; <a href="https://instagram.com/_potenzaantonio_">instagram</a> &nbsp;/&nbsp; <a href="https://github.com/antoniopotenza19?tab=repositories">repositories</a> &nbsp;/&nbsp; <a href="./assets/antonio-cartoon.png">portrait</a>
+</p>
 
 <details>
-<summary>About this README</summary>
+<summary>Background & tools</summary>
 
-The calendar uses real data from GitHub's public contributions endpoint and refreshes daily at 06:17 UTC through [GitHub Actions](https://github.com/antoniopotenza19/antoniopotenza19/actions/workflows/update-profile-art.yml). No personal token or external stats service is required. GitHub may delay scheduled runs.
+I'm a Data Science and Computer Engineering student at **Politecnico di Torino**, focused on systems that transform industrial machine data into real-time insights.
 
-The portrait and profile card are self-contained animated SVGs. Reduced-motion preferences show the finished artwork immediately.
+My work includes PLC programming, SCADA systems, industrial dashboards, machine telemetry pipelines, data analytics and predictive maintenance. My current focus is industrial monitoring platforms, anomaly detection and SCADA web dashboards.
 
-Edit [`profile.json`](./profile.json) to update the card. To regenerate everything locally:
+**Stack:** Python · FastAPI · React · PostgreSQL · TimescaleDB · Docker · C · MySQL · Visual Studio.
 
-```sh
-python -m pip install -r scripts/requirements-art.txt
-python scripts/fetch_contributions.py
-python scripts/render_profile.py
-```
+**Industrial SCADA Web Platform:** real-time compressor monitoring, alarm management, energy dashboards and time-series visualization.
 
-The portrait crop is tailored to the current avatar; adjust `portrait()` in `scripts/render_profile.py` when replacing `avatar.png`.
+**Data Science & Simulation:** stochastic processes, epidemic models, random graphs and time-series forecasting with NumPy, Pandas and Matplotlib.
 
-Inspired by [Avi Vashishta's animated profile README guide](https://www.avivashishta.com/blog/build-animated-github-profile-readme). Implementation written for this profile.
+Inspired by [Avi Vashishta's profile](https://github.com/AVIVASHISHTA29). [How this README works](./MAINTENANCE.md).
 
 </details>
